@@ -5,7 +5,6 @@ function PCOSDiagnosis() {
     "Do you experience menstrual irregularity?",
     "Do you have excess hair growth?",
     "Do you suffer from acne?",
-    // ... Add other questions as needed
   ];
 
   const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -34,7 +33,7 @@ function PCOSDiagnosis() {
         </div>
       ) : (
         <div>
-          {yesCount > 2 ? ( // This condition can be adjusted
+          {yesCount > 2 ? (
             <p>
               You might have PCOS. Please consult with a healthcare
               professional.

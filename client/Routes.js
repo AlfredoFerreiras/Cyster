@@ -1,16 +1,16 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import { connect } from "react-redux";
-import { withRouter, Route, Switch, Redirect } from "react-router-dom";
+import { withRouter, Routes, Route } from "react-router-dom"; // Added necessary imports here
+
 import { Login, Signup } from "./components/AuthForm";
 import Home from "./components/Home";
 import { me } from "./store";
 import About from "./components/About";
 import Resources from "./components/Resources";
 import PCOSDiagnosis from "./components/PCOSDiagnosis";
-/**
- * COMPONENT
- */
-class Routes extends Component {
+import SafeSpaceComponent from "./components/SafeSpaceComponent";
+
+class Routess extends Component {
   componentDidMount() {
     this.props.loadInitialData();
   }
@@ -21,32 +21,27 @@ class Routes extends Component {
     return (
       <div>
         {isLoggedIn ? (
-          <Switch>
-            <Route path="/" component={Home} />
-
-            <Route path="/About" component={About} />
-            <Route path="/Resources" component={Resources} />
-            <Route path="/Diagnosis" component={PCOSDiagnosis} />
-          </Switch>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/About" element={<About />} />
+            <Route path="/Resources" element={<Resources />} />
+            <Route path="/Diagnosis" element={<PCOSDiagnosis />} />
+            <Route path="/SafeSpace" element={<SafeSpaceComponent />} />
+          </Routes>
         ) : (
-          <Switch>
-            <Route path="/" exact component={Login} />
-            <Route path="/login" component={Login} />
-            <Route path="/signup" component={Signup} />
-          </Switch>
+          <Routes>
+            <Route path="/" element={<Login />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+          </Routes>
         )}
       </div>
     );
   }
 }
 
-/**
- * CONTAINER
- */
 const mapState = (state) => {
   return {
-    // Being 'logged in' for our purposes will be defined has having a state.auth that has a truthy id.
-    // Otherwise, state.auth will be an empty object, and state.auth.id will be falsey
     isLoggedIn: !!state.auth.id,
   };
 };
@@ -59,6 +54,4 @@ const mapDispatch = (dispatch) => {
   };
 };
 
-// The `withRouter` wrapper makes sure that updates are not blocked
-// when the url changes
-export default withRouter(connect(mapState, mapDispatch)(Routes));
+export default connect(mapState, mapDispatch)(Routess);
