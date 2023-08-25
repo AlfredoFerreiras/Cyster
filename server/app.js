@@ -24,12 +24,13 @@ app.use(
     directives: {
       defaultSrc: ["'self'"],
       styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
-      fontSrc: ["'self'", "fonts.gstatic.com", "https://fonts.gstatic.com"],
+      fontSrc: ["'self'", "https://fonts.gstatic.com"],
       scriptSrc: [
         "'self'",
         "'unsafe-inline'",
-        "'unsafe-eval'", // Some libraries require eval; add this if you see an error related to it
+        "'unsafe-eval'",
         "http://localhost:8080",
+        "https://cysters.onrender.com",
       ],
       imgSrc: [
         "'self'",
@@ -38,7 +39,13 @@ app.use(
         "img.youtube.com",
         "yt3.ggpht.com",
       ],
-      connectSrc: ["'self'", "http://localhost:8080", "ws://localhost:8080"], // WebSocket connection
+      connectSrc: [
+        "'self'",
+        "http://localhost:8080",
+        "ws://localhost:8080",
+        "wss://cysters.onrender.com", // Secure WebSocket for your production domain
+        "https://cysters.onrender.com", // Also, allow regular HTTP connections
+      ],
     },
   })
 );
