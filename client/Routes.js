@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { withRouter, Routes, Route } from "react-router-dom"; // Added necessary imports here
+import { Routes, Route } from "react-router-dom"; // Added necessary imports here
 
 import { Login, Signup } from "./components/AuthForm";
 import Home from "./components/Home";

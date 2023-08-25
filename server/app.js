@@ -15,19 +15,25 @@ app.use(
   helmet.contentSecurityPolicy({
     directives: {
       defaultSrc: ["'self'"],
-      styleSrc: ["'self'", "'unsafe-inline'"],
-      fontSrc: ["'self'", "fonts.gstatic.com"],
+      styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
+      fontSrc: ["'self'", "fonts.gstatic.com", "https://fonts.gstatic.com"],
       scriptSrc: [
         "'self'",
         "'unsafe-inline'",
-        "http://localhost:8080", // Add this line to allow loading scripts from your local server
+        "'unsafe-eval'", // Some libraries require eval; add this if you see an error related to it
+        "http://localhost:8080",
       ],
-      imgSrc: ["'self'", "data:", "https://media.istockphoto.com"],
-      connectSrc: ["'self'", "http://localhost:8080"], // Add this line for connecting to your local server
+      imgSrc: [
+        "'self'",
+        "data:",
+        "https://media.istockphoto.com",
+        "img.youtube.com",
+        "yt3.ggpht.com",
+      ],
+      connectSrc: ["'self'", "http://localhost:8080", "ws://localhost:8080"], // WebSocket connection
     },
   })
 );
-
 // Use the static middleware here
 app.use(express.static(path.join(__dirname, "../public")));
 

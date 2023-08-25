@@ -7,12 +7,14 @@ import messagesReducer from "./messages";
 import safespacesReducer from "./safespaces";
 import usersReducer from "./users";
 import socket from "../socket";
+import doctorsReducer from "./doctors";
 
 const reducer = combineReducers({
   auth,
   messages: messagesReducer,
   safespaces: safespacesReducer,
   users: usersReducer,
+  doctors: doctorsReducer,
 });
 
 const middleware = applyMiddleware(
@@ -27,3 +29,4 @@ export * from "./auth";
 export * from "./messages";
 export * from "./safespaces";
 export * from "./users";
+export * from "./doctors";

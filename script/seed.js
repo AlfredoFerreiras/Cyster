@@ -2,7 +2,7 @@
 
 const {
   db,
-  models: { User, Message, Safespace },
+  models: { User, Message, Safespace, GYNDoctor },
 } = require("../server/db");
 
 /**
@@ -30,16 +30,34 @@ async function seed() {
 
   const messages = await Promise.all([
     Message.create({
-      content: "Hello from Cody!",
+      content: "Hello I'm Cody and this is the Hub",
       userId: cody.id,
       safespaceId: safespaces[0].id,
     }),
     Message.create({
-      content: "Hi Cody, Murphy here!",
+      content:
+        "Hey! I'm murphy and here you can share your thoughts without judgement from the world!",
       userId: murphy.id,
       safespaceId: safespaces[0].id,
     }),
   ]);
+
+  const [Jane, John] = await Promise.all([
+    GYNDoctor.create({
+      name: "Dr. Jane Smith",
+      address: "123 Health St, Wellville, 12345",
+      phone: "(123) 456-7890",
+      website: "www.drjanesmith.com",
+    }),
+    GYNDoctor.create({
+      name: "Dr. John Doe",
+      address: "456 Med Lane, Curetown, 67890",
+      phone: "(234) 567-8901",
+      website: "www.drjohndoe.com",
+    }),
+  ]);
+
+  console.log(`seeded ${GYNDoctor.length} GYN doctors`);
 
   console.log(`seeded ${messages.length} messages`);
 
@@ -53,6 +71,11 @@ async function seed() {
       general: safespaces[0],
     },
     messages,
+
+    GYNDoctor: {
+      Jane,
+      John,
+    },
   };
 }
 

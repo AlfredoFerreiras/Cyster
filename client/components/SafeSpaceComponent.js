@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { connect, useSelector } from "react-redux";
+import { connect } from "react-redux";
 
 import { fetchMessagesThunk, sendMessage } from "../store/messages";
 import io from "socket.io-client";
@@ -7,15 +7,18 @@ import { addNewMessageThunk } from "../store/messages";
 import { startListeningToNewMessagesThunk } from "../store/messages";
 import Button from "@mui/material/Button";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { lime, purple } from "@mui/material/colors";
+import { pink } from "@mui/material/colors";
 
 const theme = createTheme({
   palette: {
-    primary: lime,
-    secondary: purple,
+    primary: pink,
+  },
+  typography: {
+    button: {
+      textTransform: "none",
+    },
   },
 });
-
 const SafeSpaceComponent = ({
   messages,
   loadMessages,
@@ -25,8 +28,6 @@ const SafeSpaceComponent = ({
 }) => {
   const [message, setMessage] = useState("");
   const socket = io.connect("http://localhost:8080");
-
-  const auth = useSelector((state) => state.auth);
 
   useEffect(() => {
     loadMessages(); // Load initial messages when the component mounts
@@ -51,31 +52,41 @@ const SafeSpaceComponent = ({
     }
   };
 
+  const formatTimestamp = (dateString) => {
+    try {
+      return new Date(dateString).toLocaleTimeString();
+    } catch (error) {
+      return "";
+    }
+  };
   return (
-    <div className="safe-space">
-      <div className="messages-list">
-        {messages?.map((msg, idx) => (
-          <div key={idx} className="message">
-            {msg.content}{" "}
-            <span className="message-author">- {msg?.user?.username}</span>
-          </div>
-        ))}
-      </div>
-      <div className="message-input">
-        <input
-          type="text"
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-          placeholder="Type your message..."
-        />
-        <ThemeProvider theme={theme}>
-          <Button variant="contained" onClick={handleSend}>
-            Send
-          </Button>
-          <Button variant="contained" color="secondary">
-            Send
-          </Button>
-        </ThemeProvider>
+    <div className="chat-wrapper">
+      <div className="safe-space">
+        <div className="messages-list">
+          {messages?.map((msg, idx) => (
+            <div key={idx} className="message">
+              {msg.content}{" "}
+              <span className="message-author">
+                - @{msg?.user?.username || "Unknown"} at{" "}
+                {formatTimestamp(msg?.user?.createdAt)}
+              </span>
+            </div>
+          ))}
+        </div>
+        <div className="message-input">
+          <input
+            type="text"
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            placeholder="Type your message..."
+            className="message-input-text"
+          />
+          <ThemeProvider theme={theme}>
+            <Button variant="outlined" onClick={handleSend}>
+              Send
+            </Button>
+          </ThemeProvider>
+        </div>
       </div>
     </div>
   );

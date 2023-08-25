@@ -2,10 +2,14 @@ import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { logout } from "../store";
+import logo from "../../images/logo.png";
 
 const Navbar = ({ handleClick, isLoggedIn }) => (
   <div>
-    <h1 style={{ textAlign: "center" }}>Cyster</h1>
+    <div className="container">
+      <h3 className="cysters">CYSTERS</h3>
+    </div>
+
     <nav style={{ textAlign: "center" }}>
       {isLoggedIn ? (
         <div>
@@ -15,7 +19,7 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
           <Link to="/about">About</Link>
           <Link to="/Resources">Resources</Link>
           <Link to="/Diagnosis">PCOS Diagnosis</Link>
-          <Link to="/SafeSpace">Safe Space</Link>
+          <Link to="/SafeSpace">HUB</Link>
           <a href="#" onClick={handleClick}>
             Logout
           </a>
