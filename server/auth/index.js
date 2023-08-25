@@ -19,7 +19,7 @@ module.exports = () => {
       res.send({ token: await user.generateToken() });
     } catch (err) {
       if (err.name === "SequelizeUniqueConstraintError") {
-        res.status(401).send("User already exists");
+        res.status(409).send("User already exists");
       } else {
         next(err);
       }
