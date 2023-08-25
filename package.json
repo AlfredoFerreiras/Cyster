@@ -5,10 +5,10 @@
   "main": "index.js",
   "proxy": "http://localhost:8080",
   "scripts": {
+    "start": "node server/index.js --ignore dist/ --ignore src/",
     "build": "webpack",
     "build:dev": "npm run build -- --watch --mode=development",
     "seed": "cross-env node script/seed.js",
-    "start": "node server",
     "start:dev": "npm run build:dev & npm run start-server",
     "start:dev:logger": "cross-env LOGGING=true npm run start:dev",
     "start:dev:seed": "cross-env SEED=true npm run start:dev",
