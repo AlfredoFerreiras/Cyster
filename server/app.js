@@ -5,11 +5,19 @@ const app = express();
 const helmet = require("helmet");
 const cors = require("cors");
 const { io } = require("./index");
+
+const FRONTEND_ORIGIN = process.env.FRONTEND_ORIGIN || "http://localhost:3000"; // assuming 3000 as a default frontend port
+
 module.exports = app;
 
 app.use(morgan("dev"));
 app.use(express.json());
-app.use(cors());
+app.use(
+  cors({
+    origin: [FRONTEND_ORIGIN, "https://cysters.onrender.com"], // allows both localhost and your production frontend
+    credentials: true,
+  })
+);
 
 app.use(
   helmet.contentSecurityPolicy({

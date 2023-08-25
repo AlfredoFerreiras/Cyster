@@ -5,9 +5,15 @@ const socketIo = require("socket.io");
 const { db } = require("./db");
 const PORT = process.env.PORT || 8080;
 const app = require("./app");
+const FRONTEND_ORIGIN = process.env.FRONTEND_ORIGIN || "http://localhost:3000";
 
 const server = http.createServer(app); // Create a server instance
-const io = socketIo(server); // Socket.io server instance
+const io = socketIo(server, {
+  cors: {
+    origin: [FRONTEND_ORIGIN, "https://cysters.onrender.com"], // allows both localhost and your production frontend
+    methods: ["GET", "POST"],
+  },
+}); // Socket.io server instance
 
 module.exports.io = io; // Export the socket.io server instance
 
