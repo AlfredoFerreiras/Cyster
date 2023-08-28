@@ -6,7 +6,7 @@ import auth from "./auth";
 import messagesReducer from "./messages";
 import safespacesReducer from "./safespaces";
 import usersReducer from "./users";
-import socket from "../socket";
+import { socket, cystersSocket } from "../socket";
 import doctorsReducer from "./doctors";
 
 const reducer = combineReducers({
@@ -18,7 +18,7 @@ const reducer = combineReducers({
 });
 
 const middleware = applyMiddleware(
-  thunkMiddleware.withExtraArgument({ socket }),
+  thunkMiddleware.withExtraArgument({ socket, cystersSocket }),
   createLogger({ collapsed: true })
 );
 

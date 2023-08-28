@@ -1,6 +1,6 @@
 // messages.js
 import axios from "axios";
-import socket from "../socket";
+import { socket, cystersSocket } from "../socket";
 
 const FETCH_MESSAGES = "FETCH_MESSAGES";
 const ADD_NEW_MESSAGE = "ADD_NEW_MESSAGE";
@@ -56,6 +56,9 @@ export const sendMessage =
 // Listening for a new message:
 export const startListeningToNewMessagesThunk = () => (dispatch) => {
   socket.on("new-message", () => {
+    dispatch(fetchMessagesThunk()); // Note: fetchMessagesThunk doesn't need the message as argument based on your current code.
+  });
+  cystersSocket.on("new-message", () => {
     dispatch(fetchMessagesThunk()); // Note: fetchMessagesThunk doesn't need the message as argument based on your current code.
   });
 };

@@ -6,7 +6,7 @@ const helmet = require("helmet");
 const cors = require("cors");
 const { io } = require("./index");
 
-const FRONTEND_ORIGIN = process.env.FRONTEND_ORIGIN || "http://localhost:3000"; // assuming 3000 as a default frontend port
+const FRONTEND_ORIGIN = process.env.FRONTEND_ORIGIN || "http://localhost:8080"; // assuming 3000 as a default frontend port
 
 module.exports = app;
 

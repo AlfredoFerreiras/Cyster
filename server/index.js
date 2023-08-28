@@ -5,7 +5,7 @@ const socketIo = require("socket.io");
 const { db } = require("./db");
 const PORT = process.env.PORT || 8080;
 const app = require("./app");
-const FRONTEND_ORIGIN = process.env.FRONTEND_ORIGIN || "http://localhost:3000";
+const FRONTEND_ORIGIN = process.env.FRONTEND_ORIGIN || "http://localhost:8080";
 
 const server = http.createServer(app); // Create a server instance
 const io = socketIo(server, {
